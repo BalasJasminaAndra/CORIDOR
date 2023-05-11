@@ -1,7 +1,5 @@
-function setup(){
-
-}
-
-function draw(){
-    
+class Player {
+  constructor(name) {
+    this.name = name;
+  }
 }
