@@ -107,6 +107,10 @@ function createInputs() {
   button.position(15, 15);
   button.mousePressed(hello);
 
+  resetButton = createButton("reset");
+  resetButton.position(15, 680);
+  resetButton.mousePressed(setup);
+
   let inputName1 = createInput("");
   inputName1.position(650, 10);
   inputName1.size(150);
