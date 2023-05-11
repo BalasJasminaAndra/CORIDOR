@@ -19,7 +19,7 @@ class Player {
     this.x = x;
   }
 
-  setY() {
+  setY(y) {
     this.y = y;
   }
 }
@@ -90,17 +90,23 @@ class Table {
 let player1;
 let player2;
 
-let round = PLAYER1;
-
 function setup() {
-  createCanvas(800, 700);
+  createCanvas(1000, 700);
   player1 = new Player("Mutulică", 0, 8);
   player2 = new Player("Mutulica", 16, 8);
   createInputs();
   table = new Table(17, 17);
 }
 
+function hello() {
+  alert("Pacea Domnului, frate Radu! Vă place jocul meu? :)");
+}
+
 function createInputs() {
+  button = createButton("click me");
+  button.position(15, 15);
+  button.mousePressed(hello);
+
   let inputName1 = createInput("");
   inputName1.position(650, 10);
   inputName1.size(150);
@@ -133,19 +139,20 @@ function mouseClicked() {
           mouseY > 100 + i * 0.7 * 40 &&
           mouseY < 100 + i * 0.7 * 40 + 40
         ) {
-          if (table.table[i][j] == PLAYER1 && round == PLAYER1) {
+          if (table.table[i][j] == PLAYER1) {
             if (i < 16) table.setValue(i + 2, j, HINT);
             if (i > 0) table.setValue(i - 2, j, HINT);
             if (j < 16) table.setValue(i, j + 2, HINT);
             if (j > 0) table.setValue(i, j - 2, HINT);
           }
 
-          if (table.table[i][j] == PLAYER2 && round == PLAYER2) {
+          if (table.table[i][j] == PLAYER2) {
             if (i < 16) table.setValue(i + 2, j, HINT);
             if (i > 0) table.setValue(i - 2, j, HINT);
             if (j < 16) table.setValue(i, j + 2, HINT);
             if (j > 0) table.setValue(i, j - 2, HINT);
           }
+          console.log(table);
         }
       }
     }
