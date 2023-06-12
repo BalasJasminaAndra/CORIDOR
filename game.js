@@ -2,6 +2,7 @@ const PLAYER1 = 1;
 const PLAYER2 = 2;
 const EMPTY = 0;
 const HINT = 10;
+const WALL = 3;
 
 class Player {
   constructor(name, x, y) {
