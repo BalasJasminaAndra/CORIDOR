@@ -167,11 +167,24 @@ function mouseClicked() {
             table.setValue(i, j, PLAYER1);
           }
 
-          if (table.table[i][j] == PLAYER2 && round == PLAYER2) {
+          if (table.table[i][j] == PLAYER2 && round == PLAYER2 && !selected) {
+            selected = true;
             if (i < 16) table.setValue(i + 2, j, HINT);
             if (i > 0) table.setValue(i - 2, j, HINT);
             if (j < 16) table.setValue(i, j + 2, HINT);
             if (j > 0) table.setValue(i, j - 2, HINT);
+          }
+
+          if (table.table[i][j] == HINT && round == PLAYER2 && selected) {
+            selected = false;
+            round = PLAYER1;
+            for (let i = 0; i < table.rows; i++) {
+              for (let j = 0; j < table.cols; j++) {
+                if (table.table[i][j] == HINT) table.setValue(i, j, EMPTY);
+                if (table.table[i][j] == PLAYER2) table.setValue(i, j, EMPTY);
+              }
+            }
+            table.setValue(i, j, PLAYER2);
           }
           console.log(table);
         }
