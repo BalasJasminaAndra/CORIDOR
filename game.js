@@ -91,6 +91,8 @@ class Table {
 let player1;
 let player2;
 
+let round = PLAYER1; //player 1 incepe
+
 function setup() {
   createCanvas(1000, 700);
   player1 = new Player("Mutulică", 0, 8);
@@ -104,7 +106,7 @@ function hello() {
 }
 
 function createInputs() {
-  button = createButton("click me");
+  button = createButton("Butonul magic");
   button.position(15, 15);
   button.mousePressed(hello);
 
@@ -133,6 +135,7 @@ function draw() {
   text(player2.name, 650, 690);
   table.draw(50, 100);
 }
+let selected = false;
 
 function mouseClicked() {
   for (i = 0; i < table.rows; i++) {
@@ -144,14 +147,27 @@ function mouseClicked() {
           mouseY > 100 + i * 0.7 * 40 &&
           mouseY < 100 + i * 0.7 * 40 + 40
         ) {
-          if (table.table[i][j] == PLAYER1) {
+          if (table.table[i][j] == PLAYER1 && round == PLAYER1 && !selected) {
+            selected = true;
             if (i < 16) table.setValue(i + 2, j, HINT);
             if (i > 0) table.setValue(i - 2, j, HINT);
             if (j < 16) table.setValue(i, j + 2, HINT);
             if (j > 0) table.setValue(i, j - 2, HINT);
           }
 
-          if (table.table[i][j] == PLAYER2) {
+          if (table.table[i][j] == HINT && round == PLAYER1 && selected) {
+            selected = false;
+            round = PLAYER2;
+            for (let i = 0; i < table.rows; i++) {
+              for (let j = 0; j < table.cols; j++) {
+                if (table.table[i][j] == HINT) table.setValue(i, j, EMPTY);
+                if (table.table[i][j] == PLAYER1) table.setValue(i, j, EMPTY);
+              }
+            }
+            table.setValue(i, j, PLAYER1);
+          }
+
+          if (table.table[i][j] == PLAYER2 && round == PLAYER2) {
             if (i < 16) table.setValue(i + 2, j, HINT);
             if (i > 0) table.setValue(i - 2, j, HINT);
             if (j < 16) table.setValue(i, j + 2, HINT);
