@@ -132,9 +132,11 @@ function createInputs() {
 
   let horizontalWall = createButton("Perete orizontal");
   horizontalWall.position(650, 350);
+  horizontalWall.mousePressed(addHorizontalWall);
 
   selected = false;
   selectVerticalWall = false;
+  selectHorizontalWall = false;
 }
 
 function draw() {
@@ -148,10 +150,19 @@ function draw() {
   if (selectVerticalWall) {
     rect(mouseX, mouseY, 10, 100);
   }
+
+  if (selectHorizontalWall) {
+    rect(mouseX, mouseY, 100, 10);
+  }
 }
 let selectVerticalWall = false;
 function addVerticalWall() {
   selectVerticalWall = true;
+}
+
+let selectHorizontalWall = false;
+function addHorizontalWall() {
+  selectHorizontalWall = true;
 }
 
 let selected = false;
@@ -169,6 +180,7 @@ function mouseClicked() {
           if (table.table[i][j] == PLAYER1 && round == PLAYER1 && !selected) {
             selected = true;
             selectVerticalWall = false;
+            selectHorizontalWall = false;
             if (i < 16) table.setValue(i + 2, j, HINT);
             if (i > 0) table.setValue(i - 2, j, HINT);
             if (j < 16) table.setValue(i, j + 2, HINT);
@@ -190,6 +202,7 @@ function mouseClicked() {
           if (table.table[i][j] == PLAYER2 && round == PLAYER2 && !selected) {
             selected = true;
             selectVerticalWall = false;
+            selectHorizontalWall = false;
             if (i < 16) table.setValue(i + 2, j, HINT);
             if (i > 0) table.setValue(i - 2, j, HINT);
             if (j < 16) table.setValue(i, j + 2, HINT);
