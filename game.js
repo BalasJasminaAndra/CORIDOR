@@ -95,7 +95,7 @@ let round = PLAYER1; //player 1 incepe
 
 function setup() {
   createCanvas(1000, 700);
-  player1 = new Player("Mutulică", 0, 8);
+  player1 = new Player("Mutulică", 14, 0);
   player2 = new Player("Mutulica", 16, 8);
   createInputs();
   table = new Table(17, 17);
@@ -137,6 +137,8 @@ function createInputs() {
   selected = false;
   selectVerticalWall = false;
   selectHorizontalWall = false;
+  winnerPlayer1 = false;
+  winnerPlayer2 = false;
 }
 
 function draw() {
@@ -154,6 +156,19 @@ function draw() {
   if (selectHorizontalWall) {
     rect(mouseX, mouseY, 100, 10);
   }
+
+  textSize(40);
+  fill("yellow");
+  strokeWeight(3);
+  stroke("black");
+  if (winnerPlayer1) {
+    text(`${player1.name} a castigat! <3`, 300, 300);
+  }
+
+  fill("green");
+  if (winnerPlayer2) {
+    text(`${player2.name} a castigat! <3`, 300, 360);
+  }
 }
 let selectVerticalWall = false;
 function addVerticalWall() {
@@ -163,6 +178,21 @@ function addVerticalWall() {
 let selectHorizontalWall = false;
 function addHorizontalWall() {
   selectHorizontalWall = true;
+}
+
+let winnerPlayer1 = false;
+let winnerPlayer2 = false;
+
+function winnerWinnerChickenDinner() {
+  if (player1.x == 16) {
+    //din source
+    winnerPlayer1 = true;
+  }
+
+  if (player2.x == 0) {
+    //din source
+    winnerPlayer2 = true;
+  }
 }
 
 let selected = false;
@@ -197,6 +227,9 @@ function mouseClicked() {
               }
             }
             table.setValue(i, j, PLAYER1);
+            player1.setX(i);
+            player1.setY(j);
+            winnerWinnerChickenDinner();
           }
 
           if (table.table[i][j] == PLAYER2 && round == PLAYER2 && !selected) {
@@ -219,6 +252,9 @@ function mouseClicked() {
               }
             }
             table.setValue(i, j, PLAYER2);
+            player2.setX(i);
+            player2.setY(j);
+            winnerWinnerChickenDinner();
           }
         }
       }
