@@ -125,6 +125,16 @@ function createInputs() {
   inputName2.size(150);
   inputName2.input(setName2);
   inputName2.value("player2");
+
+  let verticalWall = createButton("Perete vertical");
+  verticalWall.position(650, 300);
+  verticalWall.mousePressed(addVerticalWall);
+
+  let horizontalWall = createButton("Perete orizontal");
+  horizontalWall.position(650, 350);
+
+  selected = false;
+  selectVerticalWall = false;
 }
 
 function draw() {
@@ -134,7 +144,16 @@ function draw() {
   text(player1.name, 650, 50);
   text(player2.name, 650, 690);
   table.draw(50, 100);
+
+  if (selectVerticalWall) {
+    rect(mouseX, mouseY, 10, 100);
+  }
 }
+let selectVerticalWall = false;
+function addVerticalWall() {
+  selectVerticalWall = true;
+}
+
 let selected = false;
 
 function mouseClicked() {
@@ -149,6 +168,7 @@ function mouseClicked() {
         ) {
           if (table.table[i][j] == PLAYER1 && round == PLAYER1 && !selected) {
             selected = true;
+            selectVerticalWall = false;
             if (i < 16) table.setValue(i + 2, j, HINT);
             if (i > 0) table.setValue(i - 2, j, HINT);
             if (j < 16) table.setValue(i, j + 2, HINT);
@@ -169,6 +189,7 @@ function mouseClicked() {
 
           if (table.table[i][j] == PLAYER2 && round == PLAYER2 && !selected) {
             selected = true;
+            selectVerticalWall = false;
             if (i < 16) table.setValue(i + 2, j, HINT);
             if (i > 0) table.setValue(i - 2, j, HINT);
             if (j < 16) table.setValue(i, j + 2, HINT);
@@ -186,7 +207,6 @@ function mouseClicked() {
             }
             table.setValue(i, j, PLAYER2);
           }
-          console.log(table);
         }
       }
     }
