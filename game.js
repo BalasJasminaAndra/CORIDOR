@@ -102,7 +102,7 @@ function setup() {
 }
 
 function hello() {
-  alert("Pacea Domnului, frate Radu! Vă place jocul meu? :)");
+  alert(" Arăți minunat!:)");
 }
 
 function createInputs() {
